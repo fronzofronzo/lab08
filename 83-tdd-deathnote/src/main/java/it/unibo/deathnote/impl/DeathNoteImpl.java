@@ -1,8 +1,12 @@
 package it.unibo.deathnote.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import it.unibo.deathnote.api.DeathNote;
 
 public class DeathNoteImpl implements DeathNote {
+
 
     @Override
     public String getRule(int ruleNumber) {
@@ -38,5 +42,6 @@ public class DeathNoteImpl implements DeathNote {
     public boolean isNameWritten(String name) {
         throw new UnsupportedOperationException("Unimplemented method 'isNameWritten'");
     }
+
 
 }
