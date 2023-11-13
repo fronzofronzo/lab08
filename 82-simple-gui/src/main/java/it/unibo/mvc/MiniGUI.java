@@ -1,8 +1,11 @@
 package it.unibo.mvc;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -34,15 +37,35 @@ public class MiniGUI {
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
+         * part1 of exercise
+         */
+        final JPanel myCanvas = new JPanel();
+        myCanvas.setLayout(new BoxLayout(myCanvas, BoxLayout.LINE_AXIS));
+        canvas.removeAll();
+        canvas.add(myCanvas, BorderLayout.CENTER);
+        myCanvas.add(write);
+        /*
+         * part2 of exercise
+         */
+        final JTextField result = new JTextField("Result");
+        canvas.add(result, BorderLayout.NORTH);
+        /*
+         * part3 of exercise
+         */
+        /*
          * Handlers
          */
         write.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                System.out.println(randomGenerator.nextInt());
+                Integer n = randomGenerator.nextInt();
+                System.out.println(n);
+                String s = Integer.toString(n);
+                result.setText(s);
             }
         });
     }
+
 
     private void display() {
         /*
