@@ -1,5 +1,7 @@
 package it.unibo.deathnote;
 
+import java.util.jar.Attributes.Name;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -9,8 +11,10 @@ import it.unibo.deathnote.impl.DeathNoteImpl;
 class TestDeathNote {
 
     final private static int NEGATIVE_NUM = -1;
+    private static String NAME = "Gerry Scotti";
+    private static String OTHER_NAME = "Giuseppe Lovato";
 
-    final DeathNote testDeathNote = new DeathNoteImpl();
+    private DeathNote testDeathNote = new DeathNoteImpl();
 
     @Test
     public void testNumRulesNotZero() {
@@ -41,5 +45,26 @@ class TestDeathNote {
     }
 
     @Test
-    
+    public void testDeath() {
+        Assertions.assertFalse(testDeathNote.isNameWritten(NAME));
+        testDeathNote.writeName(NAME);
+        Assertions.assertTrue(testDeathNote.isNameWritten(NAME));
+        Assertions.assertFalse(testDeathNote.isNameWritten(OTHER_NAME));
+        Assertions.assertFalse(testDeathNote.isNameWritten(""));
+    }
+
+    @Test
+    public void checkCauseDeath() {
+        final String cause = "Acc sparato";
+        try {
+            testDeathNote.writeDeathCause(cause);
+            Assertions.fail();
+        } catch (IllegalStateException e ) {
+            Assertions.assertEquals("There's no name in this DeathNote", e.getMessage());
+        }
+        testDeathNote.writeName(NAME);
+        Assertions.assertEquals(testDeathNote.getDeathCause(NAME), "heart attack");
+        testDeathNote.writeName(OTHER_NAME);
+        testDeathNote.writeDeathCause("karting accident");
+    }
 }
