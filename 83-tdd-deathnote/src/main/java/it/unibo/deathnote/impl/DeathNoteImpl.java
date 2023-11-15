@@ -11,8 +11,17 @@ public class DeathNoteImpl implements DeathNote {
 
     private final Map<String, Pair<String,String>> deaths = new HashMap<>();
     private long time ;
+    private String actualName = null;
 
     public DeathNoteImpl() {
+    }
+
+    private void setTime(long time) {
+        this.time = time;
+    }
+
+    private void setActualName(String name) {
+        this.actualName = name;
     }
     
     @Override
@@ -29,11 +38,23 @@ public class DeathNoteImpl implements DeathNote {
             throw new NullPointerException("Name insered is null");
         }
         deaths.put(name, new Pair<String,String>("", ""));
+        setActualName(name);
+        setTime(System.currentTimeMillis());
     }
 
     @Override
     public boolean writeDeathCause(String cause) {
-        throw new UnsupportedOperationException("Unimplemented method 'writeDeathCause'");
+        if(this.actualName == null || cause == null ) {
+            throw new IllegalStateException(cause == null ? "Cause is null " : "There's no name written in the DeathNote ");
+        }
+        final long actualTime = System.currentTimeMillis();
+        if((actualTime - time) < 40) {
+            deaths.get(actualName).setFirst(cause);
+            return true;
+        } else {
+            setActualName(null);
+            return false;
+        }
     }
 
     @Override
