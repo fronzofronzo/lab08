@@ -25,7 +25,10 @@ public class DeathNoteImpl implements DeathNote {
 
     @Override
     public void writeName(String name) {
-        if()
+        if(name == null) {
+            throw new NullPointerException("Name insered is null");
+        }
+        deaths.put(name, new Pair<String,String>("", ""));
     }
 
     @Override
@@ -53,6 +56,10 @@ public class DeathNoteImpl implements DeathNote {
         throw new UnsupportedOperationException("Unimplemented method 'isNameWritten'");
     }
 
+    /**
+     * A class that implements a Pair of two objects. First is of the X type
+     * and the second is of the Y type
+     */
     private class Pair<X,Y> {
 
         private  X first;
