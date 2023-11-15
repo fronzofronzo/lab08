@@ -2,20 +2,30 @@ package it.unibo.deathnote.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import it.unibo.deathnote.api.DeathNote;
 
 public class DeathNoteImpl implements DeathNote {
 
+    private final Map<String, Pair<String,String>> deaths = new HashMap<>();
+    private long time ;
 
+    public DeathNoteImpl() {
+    }
+    
     @Override
     public String getRule(int ruleNumber) {
-        throw new UnsupportedOperationException("Unimplemented method 'getRule'");
+        if(ruleNumber < 1 || ruleNumber > RULES.size()) {
+            throw new IllegalArgumentException("Input number not valid");
+        }
+        return RULES.get(ruleNumber);
     }
 
     @Override
     public void writeName(String name) {
-        throw new UnsupportedOperationException("Unimplemented method 'writeName'");
+        if()
     }
 
     @Override
@@ -43,5 +53,31 @@ public class DeathNoteImpl implements DeathNote {
         throw new UnsupportedOperationException("Unimplemented method 'isNameWritten'");
     }
 
+    private class Pair<X,Y> {
+
+        private  X first;
+        private  Y second;
+
+        public Pair(X first, Y second) {
+            this.first = first;
+            this.second = second;
+        }
+
+        public X getFirst () {
+            return this.first;
+        }
+
+        public Y getSecond() {
+            return this.second;
+        }
+
+        public void setFirst(X input) {
+            this.first = input;
+        }
+
+        public void setSecond(Y input) {
+            this.second = input;
+        }
+    }
 
 }
