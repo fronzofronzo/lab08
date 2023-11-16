@@ -77,7 +77,10 @@ public class DeathNoteImpl implements DeathNote {
 
     @Override
     public String getDeathCause(String name) {
-        throw new UnsupportedOperationException("Unimplemented method 'getDeathCause'");
+        if(!deaths.containsKey(name)) {
+            throw new IllegalArgumentException("There's no name in the DeathNote ");
+        }
+        
     }
 
     @Override
