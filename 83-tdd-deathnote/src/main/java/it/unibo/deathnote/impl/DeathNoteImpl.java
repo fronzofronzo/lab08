@@ -80,12 +80,25 @@ public class DeathNoteImpl implements DeathNote {
         if(!deaths.containsKey(name)) {
             throw new IllegalArgumentException("There's no name in the DeathNote ");
         }
-        
+        String s = deaths.get(name).getFirst();
+        if(s == "") {
+            return "heart attack";
+        } else {
+            return s;
+        }
     }
 
     @Override
     public String getDeathDetails(String name) {
-        throw new UnsupportedOperationException("Unimplemented method 'getDeathDetails'");
+        if(!deaths.containsKey(name)) {
+            throw new IllegalArgumentException("There's no name in the DeathNote ");
+        }
+        String s = deaths.get(name).getSecond();
+        if(s == "") {
+            return "heart attack";
+        } else {
+            return s;
+        }
     }
 
     @Override
