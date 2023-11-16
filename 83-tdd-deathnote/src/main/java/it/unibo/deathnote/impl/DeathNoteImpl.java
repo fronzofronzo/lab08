@@ -50,6 +50,7 @@ public class DeathNoteImpl implements DeathNote {
         final long actualTime = System.currentTimeMillis();
         if((actualTime - time) < 40) {
             deaths.get(actualName).setFirst(cause);
+            setTime(System.currentTimeMillis());
             return true;
         } else {
             setActualName(null);
@@ -59,7 +60,19 @@ public class DeathNoteImpl implements DeathNote {
 
     @Override
     public boolean writeDetails(String details) {
-        throw new UnsupportedOperationException("Unimplemented method 'writeDetails'");
+       if(this.actualName == null || details == null ) {
+            throw new IllegalStateException(details == null ? "Details are null " : "There's no name written in the DeathNote ");
+        }
+        final long actualTime = System.currentTimeMillis();
+        if((actualTime - time) < 6040) {
+            deaths.get(actualName).setSecond(details);
+            setActualName(null);
+            setTime(System.currentTimeMillis());
+            return true;
+        } else {
+            setActualName(null);
+            return false;
+        }
     }
 
     @Override
