@@ -1,7 +1,5 @@
 package it.unibo.deathnote.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +27,7 @@ public class DeathNoteImpl implements DeathNote {
         if(ruleNumber < 1 || ruleNumber > RULES.size()) {
             throw new IllegalArgumentException("Input number not valid");
         }
-        return RULES.get(ruleNumber);
+        return RULES.get(ruleNumber - 1);
     }
 
     @Override
@@ -45,7 +43,7 @@ public class DeathNoteImpl implements DeathNote {
     @Override
     public boolean writeDeathCause(String cause) {
         if(this.actualName == null || cause == null ) {
-            throw new IllegalStateException(cause == null ? "Cause is null " : "There's no name written in the DeathNote ");
+            throw new IllegalStateException(cause == null ? "Cause is null " : "There's no name written in the DeathNote");
         }
         final long actualTime = System.currentTimeMillis();
         if((actualTime - time) < 40) {
@@ -61,7 +59,7 @@ public class DeathNoteImpl implements DeathNote {
     @Override
     public boolean writeDetails(String details) {
        if(this.actualName == null || details == null ) {
-            throw new IllegalStateException(details == null ? "Details are null " : "There's no name written in the DeathNote ");
+            throw new IllegalStateException(details == null ? "Details are null " : "There's no name written in the DeathNote");
         }
         final long actualTime = System.currentTimeMillis();
         if((actualTime - time) < 6040) {
@@ -77,7 +75,7 @@ public class DeathNoteImpl implements DeathNote {
 
     @Override
     public String getDeathCause(String name) {
-        if(!deaths.containsKey(name)) {
+        if(!isNameWritten(name)) {
             throw new IllegalArgumentException("There's no name in the DeathNote ");
         }
         String s = deaths.get(name).getFirst();
@@ -90,20 +88,16 @@ public class DeathNoteImpl implements DeathNote {
 
     @Override
     public String getDeathDetails(String name) {
-        if(!deaths.containsKey(name)) {
+        if(!isNameWritten(name)) {
             throw new IllegalArgumentException("There's no name in the DeathNote ");
         }
         String s = deaths.get(name).getSecond();
-        if(s == "") {
-            return "heart attack";
-        } else {
-            return s;
-        }
+        return s;
     }
 
     @Override
     public boolean isNameWritten(String name) {
-        throw new UnsupportedOperationException("Unimplemented method 'isNameWritten'");
+        return deaths.containsKey(name);
     }
 
     /**

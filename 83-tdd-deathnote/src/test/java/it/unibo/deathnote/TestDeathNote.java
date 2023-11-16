@@ -5,12 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.util.jar.Attributes.Name;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static it.unibo.deathnote.api.DeathNote.RULES;
-import static java.lang.Thread.sleep;
 
 import it.unibo.deathnote.api.DeathNote;
 import it.unibo.deathnote.impl.DeathNoteImpl;
@@ -67,7 +64,7 @@ class TestDeathNote {
             testDeathNote.writeDeathCause(cause);
             Assertions.fail();
         } catch (IllegalStateException e ) {
-            Assertions.assertEquals("There's no name in this DeathNote", e.getMessage());
+            Assertions.assertEquals("There's no name written in the DeathNote", e.getMessage());
         }
         testDeathNote.writeName(NAME);
         Assertions.assertEquals(testDeathNote.getDeathCause(NAME), "heart attack");
@@ -85,7 +82,7 @@ class TestDeathNote {
             testDeathNote.writeDetails("it was an accident");
             fail();
         } catch ( IllegalStateException e) {
-            assertEquals(e.getMessage(), "there is no name written in this DeathNote");
+            assertEquals(e.getMessage(), "There's no name written in the DeathNote");
         }
         testDeathNote.writeName(NAME);
         assertEquals(testDeathNote.getDeathDetails(NAME), "");
